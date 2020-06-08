@@ -1,68 +1,63 @@
 import React, { Component } from "react";
-import { Button, Container, Header, List, TextArea } from "semantic-ui-react";
+import {Button, Container, Divider, Grid, Header, TextArea} from "semantic-ui-react";
+import { fetchData } from "../lib/fetchSqlQuery";
+import { TablesRes } from "../components/TablesRes";
+import { AnswerArea } from "../components/AnswerArea";
 
 class MainScreen extends Component {
   state = {
-    query: "SELECT name FROM artists;",
+    query:
+      "SELECT * FROM invoices WHERE billing_state = 'WA' AND billing_city = 'Redmond';",
     response: [],
+    correctQuery:
+      "SELECT * FROM invoices WHERE billing_state = 'WA' AND billing_city = 'Redmond';",
+    correctResponse: [],
     status: "ok",
+    loading: false,
   };
+
+
+
+  async componentDidMount() {
+    this.setState({ loading: true });
+    const data = await fetchData(this.state.correctQuery);
+    this.setState({ correctResponse: data.resp, status: data.status });
+    this.setState({ loading: false });
+  }
 
   changeHandler = (event) => {
     this.setState({ [event.target.name]: event.target.value });
   };
 
-  submitHandler = (event) => {
+  submitHandler = async (event) => {
     const { query } = this.state;
     if (!query) return;
     event.preventDefault();
-    this.fetchData(query);
-  };
-
-  fetchData = async (query) => {
-    try {
-      console.log(query)
-      const res = await fetch('http://localhost:3100/query', {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json; charset=utf-8",
-        },
-        body: JSON.stringify({query: query})
-      });
-      const data = await res.json();
-      console.log('data', data)
-      this.setState({ response: data.resp, status: data.status });
-    } catch (err) {
-      console.log("Error: ", err);
-    }
+    this.setState({ loading: true });
+    const data = await fetchData(query);
+    this.setState({ loading: false });
+    this.setState({ response: data.resp, status: data.status });
   };
 
   render() {
-    const { response, status } = this.state;
+    const { response, correctResponse, status, loading } = this.state;
+    console.log(response)
     return (
-      <Container text>
-        <Header as="h2">Header</Header>
-        <p>
-          "List the names of the top five customers based on the sums of their invoice totals"
-        </p>
-        <TextArea
-          placeholder="SQL запрос..."
-          style={{ minHeight: 100, width: "100%", maxWidth: "100%" }}
-          name="query"
-          onChange={this.changeHandler}
-        />
-        <Button fluid onClick={this.submitHandler}>
-          Run to sql base...
-        </Button>
-        {!status && <p>Ошибочный запрос: <br/>{response}</p>}
+      <Container style={{ marginTop: 20, minWidth: 770}}>
+        <Header as="h2">SQL Tutor</Header>
+        <Divider/>
 
-        {status && <List
-          items={response?.map((item) => {
-            let line = "";
-            for (let [key, value] of Object.entries(item)) line += `${key}: ${value}  `;
-            return line;
-          })}
-        />}
+        <AnswerArea
+          loading={loading}
+          submitHandler={this.submitHandler}
+          changeHandler={this.changeHandler}
+        />
+
+        <TablesRes
+          status={status}
+          response={response}
+          correctResponse={correctResponse}
+        />
       </Container>
     );
   }
