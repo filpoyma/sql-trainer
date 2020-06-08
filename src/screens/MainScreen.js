@@ -1,11 +1,8 @@
 import React, { Component } from "react";
 import {
-  Button,
   Container,
   Divider,
-  Grid,
   Header,
-  TextArea,
 } from "semantic-ui-react";
 import { fetchData } from "../lib/fetchSqlQuery";
 import { TablesRes } from "../components/TablesRes";
@@ -21,6 +18,7 @@ class MainScreen extends Component {
     correctResponse: [],
     status: "ok",
     loading: false,
+    page: 1,
   };
 
   async componentDidMount() {
@@ -43,12 +41,14 @@ class MainScreen extends Component {
     const data = await fetchData(query);
     if (data) this.setState({ response: data.resp, status: data.status });
     else alert("Что то с сервером не так...");
+    // if(isAnswerCorrect)
+    // this.setState((prevState)=>({...prevState, page: prevState.page + 1}))
     this.setState({ loading: false });
   };
 
   render() {
     const { response, correctResponse, status, loading } = this.state;
-    console.log(response);
+    console.log('page', this.state.page)
     return (
       <Container style={{ marginTop: 20, minWidth: 770 }}>
         <Header as="h2">SQL Tutor</Header>
@@ -58,6 +58,8 @@ class MainScreen extends Component {
           loading={loading}
           submitHandler={this.submitHandler}
           changeHandler={this.changeHandler}
+          page={this.state.page}
+          pageHandler={(n)=>this.setState({page: n})}
         />
 
         <TablesRes

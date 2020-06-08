@@ -3,7 +3,8 @@ import { Button, Grid, TextArea } from "semantic-ui-react";
 import TableInfo from "./TableInfo";
 import AppPagination from "./Pagination";
 
-export const AnswerArea = ({ loading, submitHandler, changeHandler }) => {
+export const AnswerArea = ({ loading, submitHandler, changeHandler, page, pageHandler }) => {
+
   return (
     <Grid>
       <Grid.Column width={9} style={{minWidth: 410}}>
@@ -43,7 +44,7 @@ export const AnswerArea = ({ loading, submitHandler, changeHandler }) => {
           justifyContent: "center",
           marginTop: 20,
         }}>
-        <AppPagination activePageHandele={(n) => console.log(n)} activePage={1}
+        <AppPagination activePageHandele={(n) => {pageHandler(n)}} activePage={page}
         />
         </div>
       </Grid.Column>

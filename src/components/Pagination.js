@@ -4,7 +4,7 @@ import { Icon, Pagination } from 'semantic-ui-react'
 const AppPagination = ({activePageHandele, activePage}) => (
   <Pagination
     size='mini'
-    defaultActivePage={activePage}
+    activePage={activePage}
     ellipsisItem={{ content: <Icon name='ellipsis horizontal' />, icon: true }}
     firstItem={{ content: <Icon name='angle double left' />, icon: true }}
     lastItem={{ content: <Icon name='angle double right' />, icon: true }}
