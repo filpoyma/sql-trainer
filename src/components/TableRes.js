@@ -10,9 +10,9 @@ const TableRes = ({header = [], data = []}) => (
     </Table.Header>
 
     <Table.Body>
-      {data.map((values, i) => (
-        <Table.Row key={values[0]}>
-          {values.map((val) => <Table.Cell key={val}>{val}</Table.Cell>)}
+      {data.map((values,i) => (
+        <Table.Row key={i}>
+          {values.map((val, i) => <Table.Cell key={i}>{val}</Table.Cell>)}
         </Table.Row>
       ))}
     </Table.Body>

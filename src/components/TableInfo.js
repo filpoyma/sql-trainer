@@ -10,7 +10,7 @@ const TableInfo = ({header = [], data = []}) => (
     </Table.Header>
 
     <Table.Body onScroll={() => console.log("scroll")}>
-      {data.map((val, i) => (
+      {data.map((val) => (
         <Table.Row key={val}>
           <Table.Cell >{val}</Table.Cell>
         </Table.Row>

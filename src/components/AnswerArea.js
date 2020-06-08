@@ -3,14 +3,13 @@ import { Button, Grid, TextArea } from "semantic-ui-react";
 import TableInfo from "./TableInfo";
 import AppPagination from "./Pagination";
 
-export const AnswerArea = ({ loading, submitHandler, changeHandler, page, pageHandler }) => {
-
+export const AnswerArea = ({ loading, submitHandler, changeHandler, page, pageHandler, isCorrect, nextHandler, question }) => {
+console.log('???????', isCorrect)
   return (
     <Grid>
       <Grid.Column width={9} style={{minWidth: 410}}>
         <h3>
-          "List the names of the top five customers based on the sums of their
-          invoice totals"
+          {question}
         </h3>
         <TextArea
           placeholder="SQL запрос..."
@@ -24,21 +23,23 @@ export const AnswerArea = ({ loading, submitHandler, changeHandler, page, pageHa
           onChange={changeHandler}
         />
 
-        <Button
+        {!isCorrect && <Button
           fluid
           primary
           color={"green"}
           loading={loading}
           onClick={submitHandler}
           content="Поехали"
-        />
-        {/*<Button*/}
-        {/*  fluid*/}
-        {/*  color={"green"}*/}
-        {/*  labelPosition="right"*/}
-        {/*  icon="right chevron"*/}
-        {/*  content="Далее"*/}
-        {/*/>*/}
+        />}
+        {isCorrect &&
+        <Button
+          fluid
+          color={"green"}
+          labelPosition="right"
+          icon="right chevron"
+          content="Далее"
+          onClick={() => nextHandler(page+1)}
+        />}
         <div   style={{
           display: "flex",
           justifyContent: "center",
