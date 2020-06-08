@@ -2,7 +2,7 @@ import React from 'react';
 import {Grid} from "semantic-ui-react";
 import TableRes from "./TableRes";
 
-export const TablesRes = ({status, response, correctResponse}) => {
+export const TablesRes = ({status, response = [], correctResponse = []}) => {
 
   const tableHeader = (res) => (res.length ? Object.keys(res[0]) : []);
   const tableData = (res) => res?.map((item) => Object.values(item));

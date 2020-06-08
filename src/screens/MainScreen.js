@@ -1,5 +1,12 @@
 import React, { Component } from "react";
-import {Button, Container, Divider, Grid, Header, TextArea} from "semantic-ui-react";
+import {
+  Button,
+  Container,
+  Divider,
+  Grid,
+  Header,
+  TextArea,
+} from "semantic-ui-react";
 import { fetchData } from "../lib/fetchSqlQuery";
 import { TablesRes } from "../components/TablesRes";
 import { AnswerArea } from "../components/AnswerArea";
@@ -16,12 +23,11 @@ class MainScreen extends Component {
     loading: false,
   };
 
-
-
   async componentDidMount() {
     this.setState({ loading: true });
     const data = await fetchData(this.state.correctQuery);
-    this.setState({ correctResponse: data.resp, status: data.status });
+    if (data) this.setState({ correctResponse: data.resp, status: data.status });
+    else alert("Что то с сервером не так...");
     this.setState({ loading: false });
   }
 
@@ -35,17 +41,18 @@ class MainScreen extends Component {
     event.preventDefault();
     this.setState({ loading: true });
     const data = await fetchData(query);
+    if (data) this.setState({ response: data.resp, status: data.status });
+    else alert("Что то с сервером не так...");
     this.setState({ loading: false });
-    this.setState({ response: data.resp, status: data.status });
   };
 
   render() {
     const { response, correctResponse, status, loading } = this.state;
-    console.log(response)
+    console.log(response);
     return (
-      <Container style={{ marginTop: 20, minWidth: 770}}>
+      <Container style={{ marginTop: 20, minWidth: 770 }}>
         <Header as="h2">SQL Tutor</Header>
-        <Divider/>
+        <Divider />
 
         <AnswerArea
           loading={loading}
