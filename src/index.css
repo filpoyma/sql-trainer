@@ -11,21 +11,3 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
-
-.tableRes {
-  display: block;
-  max-height: 55vh;
-  overflow: auto;
-}
-
-/*thead,*/
-/*tbody tr {*/
-/*  display: block;*/
-/*  width: 100%;*/
-/*  !*table-layout: inherit;*!*/
-/*}*/
-
-/*.sidescroll {*/
-/*  overflow-x: scroll;*/
-
-/*}*/

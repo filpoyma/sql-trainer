@@ -1,37 +1,76 @@
 const tab = {
-  artists: ["id", "name"],
-  albums: ["albums", "id", "title", "artist_id"],
-  track: ["id", "name", "album_id", "media_type_id"],
-  invoices: [
-    "id",
-    "invoice_date",
-    "billing_address",
-    "billing_city",
-    "billing_state",
-    "billing_country",
-    "billing_postal_code",
-    "customer_id",
-  ],
-  employees: [
-    "id",
-    "last_name",
-    "first_name",
-    "title",
-    "birth_date",
-    "hire_date",
-    "address",
-    "city",
-    "state",
-    "country",
-    "postal_code",
-    "phone",
-    "fax",
-    "email",
-    "reports_to",
-  ],
-  media_types: [],
-  tracks: [],
-  customers: [],
+  artists: {
+    header: "artists",
+    fields: ["id", "name"],
+  },
+  albums: {
+    header: "albums",
+    fields: ["id", "title", "artist_id"],
+  },
+  track: {
+    header: "track",
+    fields: ["id", "name", "album_id", "media_type_id"],
+  },
+  invoices: {
+    header: "invoices",
+    fields: [
+      "id",
+      "invoice_date",
+      "billing_address",
+      "billing_city",
+      "billing_state",
+      "billing_country",
+      "billing_postal_code",
+      "total",
+      "customer_id",
+    ],
+  },
+  employees: {
+    header: "employees",
+    fields: [
+      "id",
+      "first_name",
+      "last_name",
+      "title",
+      "birth_date",
+      "hire_date",
+      "address",
+      "city",
+      "state",
+      "country",
+      "postal_code",
+      "phone",
+      "fax",
+      "email",
+      "reports_to ref to employees (id)",
+    ],
+  },
+
+  media_types: {
+    header: "media_types",
+    fields: ['id', 'name']
+  },
+  tracks: {
+    header: "tracks",
+    fields: ['id', 'name', 'composer', 'miliseconds', 'bytes', 'unit_price', 'madia_type_id', 'genre_id']
+  },
+  customers: {
+  header: "customers",
+    fields: [
+      "id",
+      "first_name",
+      "last_name",
+      "company",
+      "address",
+      "city",
+      "state",
+      "country",
+      "postal_code",
+      "phone",
+      "fax",
+      "email",
+      "support_rep_id ref to employees (id)"]
+}
 };
 
 export const challengeValues = [
@@ -43,7 +82,7 @@ export const challengeValues = [
   ],
   [
     "SELECT * FROM artists;",
-    "Give me a list of all artists",
+    "Выведите список всех артистов (artists)",
     2,
     { tables: [tab.artists], topic: "select" },
   ],
@@ -285,7 +324,7 @@ export const challengeValues = [
     "SELECT * FROM artists AS ar JOIN albums AS al ON ar.id = al.artist_id JOIN tracks AS tr ON tr.album_id = al.id WHERE tr.name = 'Midnight';",
     'Give me a list of every artist who has performed the song "Midnight"',
     42,
-    { tables: [tab.albums, tab.artists, tab.tracks], topic: "join" },
+    { tables: [tab.artists, tab.albums, tab.tracks], topic: "join" },
   ],
   [
     "SELECT COUNT(*) FROM albums AS al JOIN artists AS ar ON ar.id = al.artist_id WHERE ar.name = 'Iron Maiden';",

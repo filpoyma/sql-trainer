@@ -4,21 +4,20 @@ import { fetchData } from "../lib/fetchSqlQuery";
 import { TablesRes } from "../components/TablesRes";
 import { AnswerArea } from "../components/AnswerArea";
 import { challengeValues } from "../api/chalenge";
+import { AppHeader } from "../components/Header";
 
 const equal = require("deep-equal");
 
 class MainScreen extends Component {
   state = {
     response: [],
-    correctQuery: '',
+    correctQuery: "",
     correctResponse: [],
     status: "ok",
     loading: false,
     page: 1,
-    isAnswerCorrect: false,
+    isAnswerCorrect: null,
   };
-
-  query = "";
 
   componentDidMount() {
     this.setCorrectAnswer(challengeValues[0][0]);
@@ -33,56 +32,61 @@ class MainScreen extends Component {
     this.setState({ loading: false });
   };
 
-  changeHandler = (event) => {
-    // this.setState({ [event.target.name]: event.target.value });
-    this.query = event.target.value;
-  };
-
   pageHandler = (page) => {
-    this.setState({ page: page });
-    this.setCorrectAnswer(challengeValues[page-1][0]);
-  }
+    this.setState({ page: page, response: [], isAnswerCorrect: null });
+    this.setCorrectAnswer(challengeValues[page - 1][0]);
+  };
 
   nextHandler = (page) => {
-    console.log('next handler page', page)
-    this.setState((prevState) => ({ ...prevState, page: prevState.page + 1 }));
-    this.setState({ isAnswerCorrect: false });
-    this.setCorrectAnswer(challengeValues[page-1][0]);
-
+    if (page >= challengeValues.length) return;
+    this.setState({ page });
+    this.setState({
+      isAnswerCorrect: null,
+      response: [],
+    });
+    this.setCorrectAnswer(challengeValues[page - 1][0]);
   };
 
-  submitHandler = async (event) => {
+  submitHandler = async (event, query) => {
     const { correctResponse } = this.state;
-    if (!this.query) return;
+    if (!query) return;
     event.preventDefault();
     this.setState({ loading: true });
-    const data = await fetchData(this.query);
+    const data = await fetchData(query);
     if (data) {
       this.setState({ response: data.resp, status: data.status });
       if (equal(data?.resp, correctResponse))
         this.setState({ isAnswerCorrect: true });
+      else this.setState({ isAnswerCorrect: false });
     } else alert("Что то с сервером не так...");
-
     this.setState({ loading: false });
   };
 
   render() {
-    const { response, correctResponse, status, loading } = this.state;
-    console.log("page", this.state.page);
+    const {
+      response,
+      correctResponse,
+      status,
+      loading,
+      isAnswerCorrect,
+      page,
+    } = this.state;
     return (
       <Container style={{ marginTop: 20, minWidth: 770 }}>
-        <Header as="h2">SQL Tutor</Header>
-        <Divider />
-
+        <AppHeader
+          isCorrect={isAnswerCorrect}
+          challengeValue={challengeValues[this.state.page - 1]}
+        />
+        <Header as="h2">SQL Train</Header>
+        <Divider style={{ marginBottom: 35 }} />
         <AnswerArea
           loading={loading}
           submitHandler={this.submitHandler}
-          changeHandler={this.changeHandler}
           nextHandler={this.nextHandler}
-          page={this.state.page}
+          page={page}
           pageHandler={(num) => this.pageHandler(num)}
-          isCorrect={this.state.isAnswerCorrect}
-          question={challengeValues[this.state.page - 1][1]}
+          isCorrect={isAnswerCorrect}
+          challengeValue={challengeValues[page - 1]}
         />
 
         <TablesRes

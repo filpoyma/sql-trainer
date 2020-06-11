@@ -9,7 +9,7 @@ export const TablesRes = ({status, response = [], correctResponse = []}) => {
   return <Grid>
     <Grid.Row>
       <Grid.Column width={8}>
-        <p>Ваш результат</p>
+        <p>Ваш результат:</p>
         {!status && (
           <p>
             Ошибочный запрос: <br />
@@ -24,7 +24,7 @@ export const TablesRes = ({status, response = [], correctResponse = []}) => {
         )}
       </Grid.Column>
       <Grid.Column width={8}>
-        <p>Ожидаемый результат</p>
+        <p>Ожидаемый результат:</p>
         <TableRes
           header={tableHeader(correctResponse)}
           data={tableData(correctResponse)}
@@ -32,4 +32,4 @@ export const TablesRes = ({status, response = [], correctResponse = []}) => {
       </Grid.Column>
     </Grid.Row>
   </Grid>
-}
+};

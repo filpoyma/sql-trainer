@@ -1,7 +1,8 @@
 import React from 'react'
 import { Icon, Pagination } from 'semantic-ui-react'
+import { challengeValues } from "../api/chalenge";
 
-const AppPagination = ({activePageHandele, activePage}) => (
+const AppPagination = ({activePageHandele, activePage, isLoading}) => (
   <Pagination
     size='mini'
     activePage={activePage}
@@ -10,8 +11,9 @@ const AppPagination = ({activePageHandele, activePage}) => (
     lastItem={{ content: <Icon name='angle double right' />, icon: true }}
     prevItem={{ content: <Icon name='angle left' />, icon: true }}
     nextItem={{ content: <Icon name='angle right' />, icon: true }}
-    totalPages={43}
+    totalPages={challengeValues.length}
     onPageChange={(e, {activePage})=>activePageHandele(activePage)}
+    disabled={isLoading}
   />
-)
+);
 export default AppPagination

@@ -1,11 +1,11 @@
 import React from "react";
 import { Table } from "semantic-ui-react";
 
-const TableInfo = ({header = [], data = []}) => (
+const TableInfo = ({header, data = []}) => (
   <Table celled compact='very' color='blue'>
     <Table.Header>
       <Table.Row>
-        {header.map((head) => <Table.HeaderCell key={head}>{head}</Table.HeaderCell>)}
+       <Table.HeaderCell>{header}</Table.HeaderCell>
       </Table.Row>
     </Table.Header>
 
