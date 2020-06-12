@@ -1,6 +1,6 @@
 export const fetchData = async (query) => {
   try {
-    const res = await fetch("http://localhost:3100", {
+    const res = await fetch("https://bootcamp-sql-back.herokuapp.com", {
       method: "POST",
       headers: {
         "Content-Type": "application/json; charset=utf-8",
