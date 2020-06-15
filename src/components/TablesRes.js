@@ -1,18 +1,19 @@
 import React from 'react';
 import {Grid} from "semantic-ui-react";
-import TableRes from "./TableRes";
+import { TableRes } from "./TableRes";
+import {CONTENT} from "../api/langConsts";
 
-export const TablesRes = ({status, response = [], correctResponse = []}) => {
+const TablesResNM = ({status, response = [], correctResponse = [], lang}) => {
 
   const tableHeader = (res) => (res.length ? Object.keys(res[0]) : []);
   const tableData = (res) => res?.map((item) => Object.values(item));
   return <Grid>
     <Grid.Row>
       <Grid.Column width={8}>
-        <p>Ваш результат:</p>
+        <p>{CONTENT.yourResult[lang]}:</p>
         {!status && (
           <p>
-            Ошибочный запрос: <br />
+            {CONTENT.requestErr[lang]} <br />
             {response[0]}
           </p>
         )}
@@ -24,7 +25,7 @@ export const TablesRes = ({status, response = [], correctResponse = []}) => {
         )}
       </Grid.Column>
       <Grid.Column width={8}>
-        <p>Ожидаемый результат:</p>
+        <p>{CONTENT.expResult[lang]}:</p>
         <TableRes
           header={tableHeader(correctResponse)}
           data={tableData(correctResponse)}
@@ -33,3 +34,4 @@ export const TablesRes = ({status, response = [], correctResponse = []}) => {
     </Grid.Row>
   </Grid>
 };
+export const TablesRes = React.memo(TablesResNM);

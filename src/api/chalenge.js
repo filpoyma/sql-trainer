@@ -76,13 +76,13 @@ const tab = {
 export const challengeValues = [
   [
     "SELECT * FROM invoices;",
-    "Выведите список всех счетов (invoices)",
+    {ru: "Выведите список всех счетов (invoices)", gb: "Give me a list of all invoices"},
     1,
     { tables: [tab.invoices], topic: "select" },
   ],
   [
     "SELECT * FROM artists;",
-    "Выведите список всех артистов (artists)",
+    {ru: "Выведите список всех артистов (artists)", gb: "Give me a list of all artists"},
     2,
     { tables: [tab.artists], topic: "select" },
   ],

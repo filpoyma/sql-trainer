@@ -1,7 +1,7 @@
 import React from "react";
 import { Table } from "semantic-ui-react";
 
-const TableRes = ({ header = [], data = [] }) => (
+const TableResNM = ({ header = [], data = [] }) => (
   <div style={styles.table}>
     <Table celled  color= "blue" >
       <Table.Header>
@@ -25,7 +25,7 @@ const TableRes = ({ header = [], data = [] }) => (
   </div>
 );
 
-export default React.memo(TableRes);
+export const TableRes = React.memo(TableResNM);
 
 const styles = {
   table: {

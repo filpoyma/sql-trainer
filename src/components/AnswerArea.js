@@ -3,6 +3,8 @@ import { Button, Grid, TextArea } from "semantic-ui-react";
 
 import TableInfo from "./TableInfo";
 import AppPagination from "./Pagination";
+import { CONTENT } from "../api/langConsts";
+import { QuestionHeader } from "./QuestionHeader";
 
 export const AnswerArea = ({
   loading,
@@ -11,9 +13,10 @@ export const AnswerArea = ({
   isCorrect,
   nextHandler,
   challengeValue,
+  lang,
 }) => {
   const [query, setQuery] = React.useState("");
-  const question = challengeValue[1];
+  const question = challengeValue[1][lang];
   const promptTables = challengeValue[3].tables;
 
   React.useEffect(() => {
@@ -23,11 +26,11 @@ export const AnswerArea = ({
   const onSubmitHandler = (event) => submitHandler(event, query);
 
   return (
-    <Grid>
+    <Grid verticalAlign="start">
       <Grid.Column width={9} style={{ minWidth: 410 }}>
-        <h3>{question}</h3>
+        <QuestionHeader title={question} />
         <TextArea
-          placeholder="SQL запрос..."
+          placeholder={CONTENT.phTextArea[lang]}
           style={styles.textarea}
           name="query"
           value={query}
@@ -41,7 +44,7 @@ export const AnswerArea = ({
             color={"green"}
             loading={loading}
             onClick={onSubmitHandler}
-            content="Поехали"
+            content={CONTENT.runBtn[lang]}
           />
         )}
         {!!isCorrect && (
@@ -50,7 +53,7 @@ export const AnswerArea = ({
             color={"green"}
             labelPosition="right"
             icon="right chevron"
-            content="Далее"
+            content={CONTENT.nextBtn[lang]}
             onClick={() => nextHandler(page + 1)}
           />
         )}
@@ -63,10 +66,14 @@ export const AnswerArea = ({
         </div>
       </Grid.Column>
       <Grid.Column width={5} floated={"right"}>
-        <h3>
-          {" "}
-          {promptTables?.length - 1 ? "Исходные таблицы" : "Исходная таблица"}
-        </h3>
+        <QuestionHeader
+          title={
+            promptTables?.length - 1
+              ? CONTENT.infoTables[lang]
+              : CONTENT.infoTable[lang]
+          }
+        />
+
         {promptTables?.map((el) => (
           <TableInfo key={el.header} header={el.header} data={el.fields} />
         ))}
