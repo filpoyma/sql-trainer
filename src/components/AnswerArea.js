@@ -1,5 +1,6 @@
 import React from "react";
 import { Button, Grid, TextArea } from "semantic-ui-react";
+
 import TableInfo from "./TableInfo";
 import AppPagination from "./Pagination";
 
@@ -7,7 +8,6 @@ export const AnswerArea = ({
   loading,
   submitHandler,
   page,
-  pageHandler,
   isCorrect,
   nextHandler,
   challengeValue,
@@ -16,11 +16,11 @@ export const AnswerArea = ({
   const question = challengeValue[1];
   const promptTables = challengeValue[3].tables;
 
-  React.useEffect(()=>{
+  React.useEffect(() => {
     if (isCorrect) setQuery("");
   }, [isCorrect]);
 
-  const onSubmitHandler= (event) => submitHandler(event, query);
+  const onSubmitHandler = (event) => submitHandler(event, query);
 
   return (
     <Grid>
@@ -56,14 +56,17 @@ export const AnswerArea = ({
         )}
         <div style={styles.pagination}>
           <AppPagination
-            activePageHandele={pageHandler}
+            activePageHandele={nextHandler}
             activePage={page}
             isLoading={loading}
           />
         </div>
       </Grid.Column>
       <Grid.Column width={5} floated={"right"}>
-        <h3>Исходные таблицы</h3>
+        <h3>
+          {" "}
+          {promptTables?.length - 1 ? "Исходные таблицы" : "Исходная таблица"}
+        </h3>
         {promptTables?.map((el) => (
           <TableInfo key={el.header} header={el.header} data={el.fields} />
         ))}
@@ -78,6 +81,7 @@ const styles = {
     minHeight: 100,
     maxHeight: 200,
     width: "100%",
+    minWidth: "50%",
     maxWidth: "100%",
   },
   pagination: {

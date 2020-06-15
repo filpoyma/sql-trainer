@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Container, Divider, Header } from "semantic-ui-react";
+
 import { fetchData } from "../lib/fetchSqlQuery";
 import { TablesRes } from "../components/TablesRes";
 import { AnswerArea } from "../components/AnswerArea";
@@ -10,12 +11,12 @@ const equal = require("deep-equal");
 
 class MainScreen extends Component {
   state = {
-    response: [],
     correctQuery: "",
+    response: [],
     correctResponse: [],
     status: "ok",
     loading: false,
-    page: 1,
+    page: +sessionStorage.getItem('SQLTrain') || 1,
     isAnswerCorrect: null,
   };
 
@@ -32,15 +33,11 @@ class MainScreen extends Component {
     this.setState({ loading: false });
   };
 
-  pageHandler = (page) => {
-    this.setState({ page: page, response: [], isAnswerCorrect: null });
-    this.setCorrectAnswer(challengeValues[page - 1][0]);
-  };
-
   nextHandler = (page) => {
-    if (page >= challengeValues.length) return;
-    this.setState({ page });
+    if (page > challengeValues.length) return;
+    sessionStorage.setItem('SQLTrain', page);
     this.setState({
+      page: page,
       isAnswerCorrect: null,
       response: [],
     });
@@ -50,15 +47,18 @@ class MainScreen extends Component {
   submitHandler = async (event, query) => {
     const { correctResponse } = this.state;
     if (!query) return;
-    event.preventDefault();
     this.setState({ loading: true });
+    event.preventDefault();
+
     const data = await fetchData(query);
-    if (data) {
-      this.setState({ response: data.resp, status: data.status });
-      if (equal(data?.resp, correctResponse))
-        this.setState({ isAnswerCorrect: true });
-      else this.setState({ isAnswerCorrect: false });
-    } else alert("Что то с сервером не так...");
+    if (!data) return alert("Что то с сервером не так...");
+
+    this.setState({ response: data.resp, status: data.status });
+    if (equal(data?.resp, correctResponse))
+      this.setState({ isAnswerCorrect: true });
+    else
+      this.setState({ isAnswerCorrect: false });
+
     this.setState({ loading: false });
   };
 
@@ -81,10 +81,9 @@ class MainScreen extends Component {
         <Divider style={{ marginBottom: 35 }} />
         <AnswerArea
           loading={loading}
+          page={page}
           submitHandler={this.submitHandler}
           nextHandler={this.nextHandler}
-          page={page}
-          pageHandler={(num) => this.pageHandler(num)}
           isCorrect={isAnswerCorrect}
           challengeValue={challengeValues[page - 1]}
         />
