@@ -19,11 +19,15 @@ export const AnswerArea = ({
   const question = challengeValue[1][lang];
   const promptTables = challengeValue[3].tables;
 
-  React.useEffect(() => {
-    if (isCorrect) setQuery("");
-  }, [isCorrect]);
+  // React.useEffect(() => {
+  //   if (isCorrect) setQuery("");
+  // }, [isCorrect]);
 
   const onSubmitHandler = (event) => submitHandler(event, query);
+  const onNextHandler = (page) => {
+    nextHandler(page + 1);
+    setQuery("");
+  };
 
   return (
     <Grid verticalAlign="start">
@@ -54,7 +58,7 @@ export const AnswerArea = ({
             labelPosition="right"
             icon="right chevron"
             content={CONTENT.nextBtn[lang]}
-            onClick={() => nextHandler(page + 1)}
+            onClick={() => onNextHandler(page)}
           />
         )}
         <div style={styles.pagination}>
@@ -90,6 +94,7 @@ const styles = {
     width: "100%",
     minWidth: "50%",
     maxWidth: "100%",
+    padding: 15
   },
   pagination: {
     display: "flex",

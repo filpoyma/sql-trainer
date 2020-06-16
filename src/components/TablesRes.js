@@ -3,7 +3,7 @@ import {Grid} from "semantic-ui-react";
 import { TableRes } from "./TableRes";
 import {CONTENT} from "../api/langConsts";
 
-const TablesResNM = ({status, response = [], correctResponse = [], lang}) => {
+const TablesResNM = ({status, response = [], correctResponse = [], lang, loading}) => {
 
   const tableHeader = (res) => (res.length ? Object.keys(res[0]) : []);
   const tableData = (res) => res?.map((item) => Object.values(item));
@@ -21,6 +21,7 @@ const TablesResNM = ({status, response = [], correctResponse = [], lang}) => {
           <TableRes
             header={tableHeader(response)}
             data={tableData(response)}
+            loading={loading}
           />
         )}
       </Grid.Column>
@@ -29,6 +30,7 @@ const TablesResNM = ({status, response = [], correctResponse = [], lang}) => {
         <TableRes
           header={tableHeader(correctResponse)}
           data={tableData(correctResponse)}
+          loading={loading}
         />
       </Grid.Column>
     </Grid.Row>

@@ -1,11 +1,12 @@
 import React from "react";
-import { Table } from "semantic-ui-react";
+import {Dimmer, Table} from "semantic-ui-react";
 
-const TableResNM = ({ header = [], data = [] }) => (
+const TableResNM = ({ header = [], data = [], loading }) => (
   <div style={styles.table}>
     <Table celled  color= "blue" >
       <Table.Header>
         <Table.Row >
+          <Dimmer active={loading} inverted/>
           {header.map((head) => (
             <Table.HeaderCell key={head}>{head}</Table.HeaderCell>
           ))}

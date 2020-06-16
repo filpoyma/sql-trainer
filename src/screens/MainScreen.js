@@ -46,6 +46,7 @@ class MainScreen extends Component {
       page: page,
       isAnswerCorrect: null,
       response: [],
+      // correctResponse: []
     });
     this.setCorrectAnswer(challengeValues[page - 1][0]);
   };
@@ -112,6 +113,7 @@ class MainScreen extends Component {
           response={response}
           correctResponse={correctResponse}
           lang={lang}
+          loading={loading}
         />
       </Container>
     );
