@@ -1,13 +1,13 @@
 import React from "react";
-import { Table } from "semantic-ui-react";
+import {Dimmer, Table} from "semantic-ui-react";
 
-const TableRes = ({ header = [], data = [] }) => (
+const TableResNM = ({ header = [], data = [], loading }) => (
   <div style={styles.table}>
-    <Table celled  color= "blue" >
+    <Table celled color="blue">
       <Table.Header>
-        <Table.Row >
+        <Table.Row>
           {header.map((head) => (
-            <Table.HeaderCell key={head}>{head}</Table.HeaderCell>
+            <Table.HeaderCell key={head}><b>{head}</b></Table.HeaderCell>
           ))}
         </Table.Row>
       </Table.Header>
@@ -22,10 +22,11 @@ const TableRes = ({ header = [], data = [] }) => (
         ))}
       </Table.Body>
     </Table>
+    <Dimmer active={loading} inverted />
   </div>
 );
 
-export default React.memo(TableRes);
+export const TableRes = React.memo(TableResNM);
 
 const styles = {
   table: {
