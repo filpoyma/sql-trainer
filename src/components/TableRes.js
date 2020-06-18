@@ -3,12 +3,11 @@ import {Dimmer, Table} from "semantic-ui-react";
 
 const TableResNM = ({ header = [], data = [], loading }) => (
   <div style={styles.table}>
-    <Table celled  color= "blue" >
+    <Table celled color="blue">
       <Table.Header>
-        <Table.Row >
-          <Dimmer active={loading} inverted/>
+        <Table.Row>
           {header.map((head) => (
-            <Table.HeaderCell key={head}>{head}</Table.HeaderCell>
+            <Table.HeaderCell key={head}><b>{head}</b></Table.HeaderCell>
           ))}
         </Table.Row>
       </Table.Header>
@@ -23,6 +22,7 @@ const TableResNM = ({ header = [], data = [], loading }) => (
         ))}
       </Table.Body>
     </Table>
+    <Dimmer active={loading} inverted />
   </div>
 );
 

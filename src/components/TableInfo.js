@@ -5,11 +5,11 @@ const TableInfo = ({header, data = []}) => (
   <Table celled compact='very' color='blue'>
     <Table.Header>
       <Table.Row>
-       <Table.HeaderCell>{header}</Table.HeaderCell>
+        <Table.HeaderCell>{header}</Table.HeaderCell>
       </Table.Row>
     </Table.Header>
 
-    <Table.Body onScroll={() => console.log("scroll")}>
+    <Table.Body>
       {data.map((val) => (
         <Table.Row key={val}>
           <Table.Cell >{val}</Table.Cell>

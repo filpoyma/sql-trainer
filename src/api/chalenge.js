@@ -124,7 +124,7 @@ export const challengeValues = [
   ],
   [
     "SELECT * FROM invoices WHERE billing_state = 'WA' AND billing_city = 'Redmond';",
-    {ru: "Дайте мне список всех счетов из Редмонда (Redmond), штат Вашингтон (WA)", gb: "Give me a list of all invoices from Redmond, WA"},
+    {ru: "Покажите список всех счетов из Редмонда (Redmond), штат Вашингтон (WA)", gb: "Give me a list of all invoices from Redmond, WA"},
     9,
     { tables: [tab.invoices], topic: "where" },
   ],
@@ -370,7 +370,7 @@ export const challengeValues = [
   ],
   [
     "SELECT al.*, COUNT(*) count FROM albums al JOIN tracks t ON (t.album_id = al.id) GROUP BY al.id ORDER BY count DESC",
-    {ru: "Перечислите все альбомы рядом с количеством дорожек, которые у них есть, в порядке убывания", gb: "List all albums next to the number of tracks they each have in descending order"},
+    {ru: "Перечислите все альбомы имеющие колличество дорожек, в порядке убывания", gb: "List all albums next to the number of tracks they each have in descending order"},
     50,
     { tables: [tab.albums, tab.tracks], topic: "join" },
   ],

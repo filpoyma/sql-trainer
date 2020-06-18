@@ -30,7 +30,7 @@ export const AnswerArea = ({
   };
 
   return (
-    <Grid verticalAlign="start">
+    <Grid>
       <Grid.Column width={9} style={{ minWidth: 410 }}>
         <QuestionHeader title={question} />
         <TextArea
@@ -89,12 +89,11 @@ export const AnswerArea = ({
 const styles = {
   textarea: {
     height: 200,
-    minHeight: 100,
-    maxHeight: 200,
     width: "100%",
-    minWidth: "50%",
-    maxWidth: "100%",
-    padding: 15
+    padding: 15,
+    fontWeight: 'bold',
+    fontSize: '18px',
+    resize: 'none'
   },
   pagination: {
     display: "flex",
