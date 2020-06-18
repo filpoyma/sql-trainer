@@ -1,5 +1,7 @@
 ## SQL Training
 
+run on - https://bootcamp-sql-trainer.herokuapp.com/
+
 (use it together with sql-training-backend repo)
 
 In the project directory, you can run:
