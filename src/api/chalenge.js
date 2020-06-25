@@ -7,10 +7,6 @@ const tab = {
     header: "albums",
     fields: ["id", "title", "artist_id"],
   },
-  track: {
-    header: "track",
-    fields: ["id", "name", "album_id", "media_type_id"],
-  },
   invoices: {
     header: "invoices",
     fields: [
@@ -42,7 +38,7 @@ const tab = {
       "phone",
       "fax",
       "email",
-      "reports_to ref to employees (id)",
+      "reports_to - ref to employees (id)",
     ],
   },
 
@@ -52,7 +48,7 @@ const tab = {
   },
   tracks: {
     header: "tracks",
-    fields: ['id', 'name', 'composer', 'miliseconds', 'bytes', 'unit_price', 'madia_type_id', 'genre_id']
+    fields: ['id', 'name', 'composer', 'milliseconds', 'bytes', 'unit_price', 'album_id', 'madia_type_id', 'genre_id']
   },
   customers: {
   header: "customers",
