@@ -5,11 +5,10 @@ export const fetchData = async (query) => {
       headers: {
         "Content-Type": "application/json; charset=utf-8",
       },
-      body: JSON.stringify({ query: query }),
+      body: JSON.stringify({ query }),
     });
     return res.json();
   } catch (err) {
-    console.log("Error: ", err);
-  } finally {
+    console.log("Error: ", err.message);
   }
 };

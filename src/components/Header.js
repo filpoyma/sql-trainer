@@ -1,8 +1,13 @@
 import React from "react";
 import { CONTENT } from "../api/langConsts";
-import { Flag, Header } from "semantic-ui-react";
+import { Flag, Header, Icon, Menu } from "semantic-ui-react";
 
-export const AppHeader = ({ isCorrect, challengeValue, changeLangHandler, lang }) => {
+export const AppHeader = ({
+  isCorrect,
+  challengeValue,
+  changeLangHandler,
+  lang,
+}) => {
   const topic = challengeValue[3].topic;
 
   let headerStat = "default";
@@ -20,16 +25,23 @@ export const AppHeader = ({ isCorrect, challengeValue, changeLangHandler, lang }
       <header style={{ ...styles.head, ...styles[headerStat] }}>
         <p>{msg[headerStat]}</p>
       </header>
-      <Header
-        style={styles.subtitle}
-        dividing
-        as="h2"
-      >
+      <Header style={styles.subtitle} dividing as="h2">
         <div>SQL Train</div>
         <div onClick={changeLangHandler} style={{ cursor: "pointer" }}>
           <Flag name={lang} />
         </div>
       </Header>
+      <div style={styles.externalLink}>
+        <a
+          href="https://tprg.ru/q7p5"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <div style={{ height: "35px", width: "35px", marginTop: "-23px" }}>
+            <Icon name="question circle outline" size="large" />
+          </div>
+        </a>
+      </div>
     </>
   );
 };
@@ -57,5 +69,11 @@ const styles = {
   incorrect: {
     backgroundColor: "#e6523a",
     color: "white",
+  },
+  externalLink: {
+    textAlign: "right",
+    marginRight: "4px",
+    display: "flex",
+    justifyContent: "flex-end",
   },
 };
