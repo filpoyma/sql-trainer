@@ -376,4 +376,40 @@ export const challengeValues = [
     51,
     { tables: [tab.artists, tab.albums], topic: "join" },
   ],
+  [
+    "SELECT first_name, last_name, hire_date, RANK() OVER (ORDER BY hire_date) as hire_num FROM employees ORDER BY hire_date;",
+    {ru: "Выведите имена, фамилии и даты найма всех сотрудников в порядке их найма (hire_date), а также колонку hire_num, которая показывает, каким по порядку был нанят сотрудник", gb: "List first and last names, and hire dates of all employees ordered by hire date, and also hire_num - number of employee in the company (1 for first employee, 2 for second employee etc)"},
+    52,
+    { tables: [tab.employees], topic: "window functions" },
+  ],
+  [
+    "SELECT first_name, last_name, hire_date, RANK() OVER (ORDER BY hire_date) AS hire_num FROM employees ORDER BY hire_date;",
+    {ru: "Выведите имена, фамилии и даты найма всех сотрудников в порядке их найма (hire_date), а также колонку hire_num, которая показывает, каким по порядку был нанят сотрудник", gb: "List first and last names, and hire dates of all employees ordered by hire date, and also hire_num - number of employee in the company (1 for first employee, 2 for second employee etc)"},
+    53,
+    { tables: [tab.employees], topic: "window functions" },
+  ],
+  [
+    "SELECT first_name, last_name, hire_date, LEAD(hire_date, 1) OVER (ORDER BY hire_date) AS next_hire_date from employees;",
+    {ru: "Выведите имена, фамилии, и даты найма всех сотрудников в порядке их найма (hire_date), а также колонку next_hire_date, которая показывает, когда был нанят следующий сотрудник", gb: "List first and last names, and hire dates of all employees ordered by hire date, and also next_hire_date - date of hiring of the next employee"},
+    54,
+    { tables: [tab.employees], topic: "window functions" },
+  ],
+  [
+    "SELECT *, DENSE_RANK() OVER (PARTITION BY billing_city ORDER BY total DESC) FROM invoices ORDER BY total DESC LIMIT 20;",
+    {ru: "Выведите топ-20 счетов в порядке убывания размера счета (total), добавив колонку rank_in_city, в которой укажите на каком месте по колонке \"total\" каждый счет находится среди всех счетов из того же города", gb: "List top 20 invoices, adding to it the column rank_in_city, which shows the rank of the invoice among all the invoices from the same city by the \"total\" column"},
+    55,
+    { tables: [tab.invoices], topic: "window functions" },
+  ],
+  [
+    "SELECT num_albums, COUNT(*) as num_artists FROM (SELECT COUNT(*) AS num_albums FROM albums GROUP BY artist_id) GROUP BY num_albums;",
+    {ru: "Сгруппируйте артистов по количеству альбомов: выведите колонки num_albums (количество альбомов) и num_artists (сколько артистов написали именно столько альбомов)", gb: "Group artists by number of albums: display columns num_albums (number of albums) and num_artists (how many artists wrote this many albums)"},
+    56,
+    { tables: [tab.artists], topic: "group by" },
+  ],
+  [
+    ";",
+    {ru: "Выведите список песен из 10 самых количество пе", gb: ""},
+    56,
+    { tables: [tab.tracks], topic: "window functions" },
+  ],
 ];
