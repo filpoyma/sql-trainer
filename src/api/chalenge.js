@@ -409,8 +409,8 @@ export const challengeValues = [
     { tables: [tab.artists, tab.albums], topic: "group by" },
   ],
   [
-    "SELECT genres.name AS genre, tracks.name AS track, albums.title AS album, COUNT() OVER (PARTITION BY tracks.album_id) AS tracks_in_album FROM tracks JOIN (SELECT * FROM genres WHERE name = 'Bossa Nova') AS genres ON tracks.genre_id = genres.id JOIN albums ON tracks.album_id = albums.id;",
-    {ru: "Для треков жанра Bossa Nova, выведите название жанра как genre, название трека как track, название альбома как album, и общее количество треков в альбоме, в который входит трек, как tracks_in_album", gb: "For all tracks of genre Bossa Nova list genre (genre name), track (track name), album (album title), and tracks_in_album (how many tracks are in the same album as current track)"},
+    "SELECT genres.name AS genre, tracks.name AS track, albums.title AS album, COUNT() OVER (PARTITION BY tracks.album_id) AS tracks_in_album FROM tracks JOIN (SELECT * FROM genres WHERE name = 'Bossa Nova') AS genres ON tracks.genre_id = genres.id JOIN albums ON tracks.album_id = albums.id ORDER BY album, track;",
+    {ru: "Для треков жанра Bossa Nova, выведите название жанра как genre, название трека как track, название альбома как album, и общее количество треков в альбоме, в который входит трек, как tracks_in_album. Отсортируйте по названию альбома, затем по названию трека", gb: "For all tracks of genre Bossa Nova list genre (genre name), track (track name), album (album title), and tracks_in_album (how many tracks are in the same album as current track). Sort by album, then track."},
     56,
     { tables: [tab.tracks, tab.albums, tab.genres], topic: "window functions" },
   ],
