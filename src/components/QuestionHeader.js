@@ -5,5 +5,5 @@ export const QuestionHeader = ({ title }) => (
 );
 
 const styles = {
-  title: { display: "flex", height: 45, alignItems: "flex-end" },
+  title: { display: "flex", minHeight: 47, alignItems: "flex-end" },
 };

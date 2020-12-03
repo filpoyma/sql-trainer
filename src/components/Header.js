@@ -1,6 +1,6 @@
 import React from "react";
 import { CONTENT } from "../api/langConsts";
-import { Flag, Header, Icon, Menu } from "semantic-ui-react";
+import { Flag, Header, Icon } from "semantic-ui-react";
 
 export const AppHeader = ({
   isCorrect,

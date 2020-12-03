@@ -31,7 +31,7 @@ export const AnswerArea = ({
 
   return (
     <Grid>
-      <Grid.Column width={9} style={{ minWidth: 410 }}>
+      <Grid.Column width={10} style={{ minWidth: 410 }}>
         <QuestionHeader title={question} />
         <TextArea
           placeholder={CONTENT.phTextArea[lang]}
