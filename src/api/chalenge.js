@@ -51,7 +51,7 @@ const tab = {
     fields: ['id', 'name', 'composer', 'milliseconds', 'bytes', 'unit_price', 'album_id', 'madia_type_id', 'genre_id']
   },
   customers: {
-  header: "customers",
+    header: "customers",
     fields: [
       "id",
       "first_name",
@@ -65,8 +65,16 @@ const tab = {
       "phone",
       "fax",
       "email",
-      "support_rep_id ref to employees (id)"]
-}
+      "support_rep_id ref to employees (id)"
+    ]
+  },
+  genres: {
+    header: "genres",
+    fields: [
+      "id",
+      "name",
+    ]
+  }
 };
 
 export const challengeValues = [
@@ -329,14 +337,14 @@ export const challengeValues = [
     { tables: [tab.albums, tab.artists], topic: "join" },
   ],
   [
-    "SELECT ar.name, COUNT(*) FROM artists AS ar JOIN albums AS al ON ar.id = al.artist_id GROUP BY ar.id ORDER BY ar.name",
-    {ru: "", gb:"List all artists and the number of albums they each have" },
+    "SELECT ar.name, COUNT(*) FROM artists AS ar JOIN albums AS al ON ar.id = al.artist_id GROUP BY ar.id",
+    {ru: "Перечислите всех исполнителей количество альбомов у каждого", gb:"List all artists and the number of albums they each have" },
     44,
     { tables: [tab.artists, tab.albums], topic: "join" },
   ],
   [
-    "SELECT a.title, COUNT(*) FROM albums AS a JOIN tracks AS t ON (t.album_id = a.id) GROUP BY a.id ORDER BY a.title",
-    {ru: "Перечислите всех исполнителей и количество альбомов, которые у них есть", gb: "List all albums next to the number of tracks they each have"},
+    "SELECT a.title, COUNT(*) FROM albums AS a JOIN tracks AS t ON (t.album_id = a.id) GROUP BY a.id",
+    {ru: "Перечислите все альбомы и количество треков в каждом альбоме", gb: "List all albums next to the number of tracks they each have"},
     45,
     { tables: [tab.albums, tab.tracks], topic: "join" },
   ],
@@ -375,5 +383,35 @@ export const challengeValues = [
     {ru: "Перечислите всех исполнителей и количество альбомов в каждом из них в порядке убывания, а затем, в алфавитном порядке, по имени исполнителя", gb: "List all artists and the number of albums they each have in descending order and then by artist name in ascending order"},
     51,
     { tables: [tab.artists, tab.albums], topic: "join" },
+  ],
+  [
+    "SELECT first_name, last_name, hire_date, RANK() OVER (ORDER BY hire_date) as hire_num FROM employees ORDER BY hire_date;",
+    {ru: "Выведите имена, фамилии и даты найма всех сотрудников в порядке их найма (hire_date), а также колонку hire_num, которая показывает, каким по порядку был нанят сотрудник", gb: "List first and last names, and hire dates of all employees ordered by hire date, and also hire_num - number of employee in the company (1 for first employee, 2 for second employee etc)"},
+    52,
+    { tables: [tab.employees], topic: "window functions" },
+  ],
+  [
+    "SELECT first_name, last_name, hire_date, LEAD(hire_date, 1) OVER (ORDER BY hire_date) AS next_hire_date FROM employees;",
+    {ru: "Выведите имена, фамилии, и даты найма всех сотрудников в порядке их найма (hire_date), а также колонку next_hire_date, которая показывает, когда был нанят следующий (по времени найма) сотрудник", gb: "List first and last names, and hire dates of all employees ordered by hire date, and also next_hire_date - hire date of the next employee"},
+    53,
+    { tables: [tab.employees], topic: "window functions" },
+  ],
+  [
+    "SELECT *, DENSE_RANK() OVER (PARTITION BY billing_city ORDER BY total DESC) as rank_in_city FROM invoices ORDER BY total DESC LIMIT 20;",
+    {ru: "Выведите топ-20 счетов в порядке убывания размера счета (total), добавив колонку rank_in_city, в которой укажите на каком месте по \"total\" каждый счет находится среди всех счетов из того же города", gb: "List top 20 invoices, with additional column rank_in_city, which shows the rank of the invoice among all the invoices from the same city by \"total\" column"},
+    54,
+    { tables: [tab.invoices], topic: "window functions" },
+  ],
+  [
+    "SELECT num_albums, COUNT(*) AS num_artists FROM (SELECT COUNT(*) AS num_albums FROM albums GROUP BY artist_id) GROUP BY num_albums;",
+    {ru: "Сгруппируйте артистов по количеству альбомов: выведите колонки num_albums (количество альбомов) и num_artists (сколько артистов написали именно столько альбомов)", gb: "Group artists by number of albums: display columns num_albums (number of albums) and num_artists (how many artists wrote this many albums)"},
+    55,
+    { tables: [tab.artists, tab.albums], topic: "group by" },
+  ],
+  [
+    "SELECT genres.name AS genre, tracks.name AS track, albums.title AS album, COUNT() OVER (PARTITION BY tracks.album_id) AS tracks_in_album FROM tracks JOIN (SELECT * FROM genres WHERE name = 'Bossa Nova') AS genres ON tracks.genre_id = genres.id JOIN albums ON tracks.album_id = albums.id ORDER BY album, track;",
+    {ru: "Для треков жанра Bossa Nova, выведите название жанра как genre, название трека как track, название альбома как album, и общее количество треков в альбоме, в который входит трек, как tracks_in_album. Отсортируйте по названию альбома, затем по названию трека", gb: "For all tracks of genre Bossa Nova list genre (genre name), track (track name), album (album title), and tracks_in_album (how many tracks are in the same album as current track). Sort by album, then track."},
+    56,
+    { tables: [tab.tracks, tab.albums, tab.genres], topic: "window functions" },
   ],
 ];
