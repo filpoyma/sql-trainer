@@ -1,6 +1,7 @@
 export const CONTENT = {
   infoTable: {ru: 'Исходная таблица', gb: 'Table Info'},
   infoTables: {ru: 'Исходные таблицы', gb: 'Tables Info'},
+  willNotSave: {ru: 'Введенный запрос не сохранится', gb: 'Entered query will not be saved'},
   expResult: {ru: 'Ожидаемый результат', gb: 'Expected result'},
   yourResult: {ru: 'Ваш результат', gb: 'Your result'},
   requestErr: {ru:'Ошибочный запрос:',gb:'Request error:'},

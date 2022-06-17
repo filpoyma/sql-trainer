@@ -1,13 +1,6 @@
 import React from "react";
 import MainScreen from "./screens/MainScreen";
 
-export default () => (<MainScreen />);
+const App = () => <MainScreen />;
 
-// export default () => (
-//   <Provider store={store}>
-//     <BrowserRouter>
-//       <Header />
-//       <Routers />
-//     </BrowserRouter>
-//   </Provider>
-// );
+export default App;

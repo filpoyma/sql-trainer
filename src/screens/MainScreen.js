@@ -1,18 +1,18 @@
 import React, { Component } from "react";
-import { Container} from "semantic-ui-react";
+import { Container } from "semantic-ui-react";
 
 import { fetchData } from "../lib/fetchSqlQuery";
 import { TablesRes } from "../components/TablesRes";
-import { AnswerArea } from "../components/AnswerArea";
+import AnswerArea from "../components/AnswerArea";
+import AppHeader from "../components/Header";
 import { challengeValues } from "../api/chalenge";
-import { AppHeader } from "../components/Header";
+import { CONTENT } from "../api/langConsts";
 
 const equal = require("deep-equal");
 
 class MainScreen extends Component {
-
-  startPage = +sessionStorage.getItem("SQLTrainPage") || 1;
-  lang = localStorage.getItem("SQLTrainLang") || 'gb';
+  startPage = +window.sessionStorage.getItem("SQLTrainPage") || 1;
+  lang = window.localStorage.getItem("SQLTrainLang") || "gb";
 
   state = {
     correctQuery: "",
@@ -23,11 +23,11 @@ class MainScreen extends Component {
     page: this.startPage,
     isAnswerCorrect: null,
     lang: this.lang,
+    query: "",
   };
 
-
   componentDidMount() {
-    this.setCorrectAnswer(challengeValues[this.startPage-1][0]);
+    this.setCorrectAnswer(challengeValues[this.startPage - 1][0]);
   }
 
   setCorrectAnswer = async (request) => {
@@ -40,13 +40,23 @@ class MainScreen extends Component {
   };
 
   nextHandler = (page) => {
+    console.log('file-MainScreen.js page:', page);
+    console.log('file-MainScreen.js this.state.query:', this.state.query);
+    console.log('window.localStorage', window.localStorage.getItem((page-1).toString()));
     if (page > challengeValues.length) return;
-    sessionStorage.setItem("SQLTrainPage", page);
+    if (
+      this.state.query &&
+      !window.localStorage.getItem((page-1).toString()) &&
+      !window.confirm(CONTENT.willNotSave[this.state.lang])
+    )
+      return;
+    window.sessionStorage.setItem("SQLTrainPage", page);
     this.setState({
       page: page,
       isAnswerCorrect: null,
       response: [],
       // correctResponse: []
+      query: "",
     });
     this.setCorrectAnswer(challengeValues[page - 1][0]);
   };
@@ -56,6 +66,8 @@ class MainScreen extends Component {
     if (!query) return;
     this.setState({ loading: true });
     event.preventDefault();
+
+    window.localStorage.setItem(this.state.page.toString(), query);
 
     const data = await fetchData(query);
     if (!data) return alert("Что то с сервером не так...");
@@ -69,15 +81,16 @@ class MainScreen extends Component {
   };
 
   changeLangHandler = () => {
-    if (this.state.lang === 'gb') {
-      this.setState({lang: 'ru'});
-      localStorage.setItem("SQLTrainLang", 'ru');
-    }
-    else {
-      this.setState({lang: 'gb'});
-      localStorage.setItem("SQLTrainLang", 'gb');
+    if (this.state.lang === "gb") {
+      this.setState({ lang: "ru" });
+      localStorage.setItem("SQLTrainLang", "ru");
+    } else {
+      this.setState({ lang: "gb" });
+      localStorage.setItem("SQLTrainLang", "gb");
     }
   };
+
+  setQuery = (query) => this.setState(query);
 
   render() {
     const {
@@ -88,12 +101,13 @@ class MainScreen extends Component {
       isAnswerCorrect,
       page,
       lang,
+      query,
     } = this.state;
     return (
       <Container style={{ marginTop: 20, minWidth: 770 }}>
         <AppHeader
           isCorrect={isAnswerCorrect}
-          challengeValue={challengeValues[this.state.page - 1]}
+          challengeValue={challengeValues[page - 1]}
           changeLangHandler={this.changeLangHandler}
           lang={lang}
         />
@@ -106,6 +120,8 @@ class MainScreen extends Component {
           isCorrect={isAnswerCorrect}
           challengeValue={challengeValues[page - 1]}
           lang={lang}
+          query={query}
+          setQuery={this.setQuery}
         />
 
         <TablesRes

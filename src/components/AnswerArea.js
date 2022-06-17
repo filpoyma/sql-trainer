@@ -6,7 +6,7 @@ import AppPagination from "./Pagination";
 import { CONTENT } from "../api/langConsts";
 import { QuestionHeader } from "./QuestionHeader";
 
-export const AnswerArea = ({
+const AnswerArea = ({
   loading,
   submitHandler,
   page,
@@ -14,31 +14,34 @@ export const AnswerArea = ({
   nextHandler,
   challengeValue,
   lang,
+  query,
+  setQuery,
 }) => {
-  const [query, setQuery] = React.useState("");
   const question = challengeValue[1][lang];
   const promptTables = challengeValue[3].tables;
 
   // React.useEffect(() => {
-  //   if (isCorrect) setQuery("");
+  //   if (isCorrect) setQuery({query: ""});
   // }, [isCorrect]);
 
   const onSubmitHandler = (event) => submitHandler(event, query);
   const onNextHandler = (page) => {
     nextHandler(page + 1);
-    setQuery("");
+    setQuery({ query: "" });
   };
-
   return (
     <Grid>
       <Grid.Column width={10} style={{ minWidth: 410 }}>
         <QuestionHeader title={question} />
         <TextArea
-          placeholder={CONTENT.phTextArea[lang]}
+          placeholder={
+            window.localStorage.getItem(page.toString()) ||
+            CONTENT.phTextArea[lang]
+          }
           style={styles.textarea}
           name="query"
           value={query}
-          onChange={(e) => setQuery(e.target.value)}
+          onChange={(e) => setQuery({ query: e.target.value })}
         />
 
         {!isCorrect && (
@@ -86,14 +89,16 @@ export const AnswerArea = ({
   );
 };
 
+export default React.memo(AnswerArea);
+
 const styles = {
   textarea: {
     height: 200,
     width: "100%",
     padding: 15,
-    fontWeight: 'bold',
-    fontSize: '18px',
-    resize: 'none'
+    fontWeight: "bold",
+    fontSize: "18px",
+    resize: "none",
   },
   pagination: {
     display: "flex",

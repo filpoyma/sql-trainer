@@ -2,14 +2,13 @@ import React from "react";
 import { CONTENT } from "../api/langConsts";
 import { Flag, Header, Icon } from "semantic-ui-react";
 
-export const AppHeader = ({
+const AppHeader = ({
   isCorrect,
   challengeValue,
   changeLangHandler,
   lang,
 }) => {
   const topic = challengeValue[3].topic;
-
   let headerStat = "default";
   if (isCorrect === true) headerStat = "correct";
   if (isCorrect === false) headerStat = "incorrect";
@@ -45,6 +44,8 @@ export const AppHeader = ({
     </>
   );
 };
+
+export default React.memo(AppHeader);
 
 const styles = {
   head: {
