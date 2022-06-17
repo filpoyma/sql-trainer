@@ -40,9 +40,6 @@ class MainScreen extends Component {
   };
 
   nextHandler = (page) => {
-    console.log('file-MainScreen.js page:', page);
-    console.log('file-MainScreen.js this.state.query:', this.state.query);
-    console.log('window.localStorage', window.localStorage.getItem((page-1).toString()));
     if (page > challengeValues.length) return;
     if (
       this.state.query &&
