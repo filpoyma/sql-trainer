@@ -32,7 +32,7 @@ const AppHeader = ({
       </Header>
       <div style={styles.externalLink}>
         <a
-          href="https://tprg.ru/q7p5"
+          href="https://www.sqltutorial.org/sql-triggers/"
           target="_blank"
           rel="noopener noreferrer"
         >
