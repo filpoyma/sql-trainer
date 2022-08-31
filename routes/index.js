@@ -5,7 +5,7 @@ const { query } = require("../controllers");
 const { info } = require("../controllers");
 
 
-// router.get("/", info);
+router.get("/", info);
 router.post("/", query);
 
 module.exports = router;

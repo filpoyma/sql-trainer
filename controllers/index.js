@@ -1,8 +1,9 @@
 const sqlite3 = require("sqlite3").verbose();
 const db = new sqlite3.Database("./db/sqllite.db");
 
+
 exports.info = (req, res) =>
-  res.render("index", { title: "Sql query backend" });
+  res.render("index", { title: "Server OK" });
 
 exports.query = (req, res) => {
   db.get("PRAGMA foreign_keys = ON");

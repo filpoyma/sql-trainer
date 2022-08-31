@@ -33,6 +33,7 @@ class MainScreen extends Component {
   setCorrectAnswer = async (request) => {
     this.setState({ loading: true });
     const data = await fetchData(request);
+    if (data.err) return alert(data.err);
     if (data)
       this.setState({ correctResponse: data.resp, status: data.status });
     else alert("Server error :(");
@@ -67,7 +68,8 @@ class MainScreen extends Component {
     window.localStorage.setItem(this.state.page.toString(), query);
 
     const data = await fetchData(query);
-    if (!data) return alert("Что то с сервером не так...");
+
+    if (data.err) return alert(data.err);
 
     this.setState({ response: data.resp, status: data.status });
     if (equal(data?.resp, correctResponse))

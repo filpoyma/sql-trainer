@@ -11,7 +11,6 @@ exports.appMiddlewares = (app) => {
     next();
   };
   app.use(corsMiddleware);
-
   app.use(logger('dev'));
   app.use(express.json());
   app.use(express.urlencoded({extended: false}));

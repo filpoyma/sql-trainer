@@ -1,10 +1,11 @@
 {
   "name": "server",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "private": true,
   "main": "app.js",
   "scripts": {
-    "start": "node ./bin/www",
+    "start": "pm2 start ./bin/www --name back --exp-backoff-restart-delay=300",
+    "stop": "pm2 stop back",
     "dev-back": "nodemon ./bin/www",
     "dev-front": "cd client && (COLOR=1 npm run start | cat)",
     "build": "cd client && npm install && npm run build"
@@ -13,11 +14,12 @@
     "node": "16.x"
   },
   "dependencies": {
-    "debug": "^2.6.9",
+    "debug": "^4.3.4",
     "deep-equal": "^2.0.5",
     "express": "^4.18.1",
     "hbs": "^4.2.0",
     "morgan": "^1.10.0",
-    "sqlite3": "^5.0.8"
+    "pm2": "^5.2.0",
+    "sqlite3": "^5.0.11"
   }
 }

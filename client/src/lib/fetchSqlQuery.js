@@ -7,8 +7,10 @@ export const fetchData = async (query) => {
       },
       body: JSON.stringify({ query }),
     });
+    if(!res.ok) return {err: res.statusText};
     return res.json();
   } catch (err) {
     console.log("Error: ", err.message);
+    return {err: err.message};
   }
 };
