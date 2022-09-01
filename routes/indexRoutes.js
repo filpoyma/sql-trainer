@@ -3,11 +3,11 @@ const route = express.Router();
 const db = require('../db/models');
 
 
-route.get("/query", async (req, res) => {
+route.post("/", async (req, res) => {
 
     try {
-      const res = await db.query(`
-   SELECT * from tab    
+      const res = await db.sequelize.query(`
+        SELECT * from tab    
    `);
       console.log('res: ', res);
     } catch (error) {
