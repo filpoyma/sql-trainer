@@ -4,8 +4,7 @@
   "private": true,
   "main": "app.js",
   "scripts": {
-    "start": "pm2 start ./bin/www --name back --exp-backoff-restart-delay=300",
-    "stop": "pm2 stop back",
+    "start": "node ./bin/www",
     "dev-back": "nodemon ./bin/www",
     "dev-front": "cd client && (COLOR=1 npm run start | cat)",
     "build": "cd client && npm install && npm run build"
