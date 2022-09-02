@@ -1,12 +1,11 @@
 {
-  "name": "Express-ReactSSR",
+  "name": "postgrequerry",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "start": "node app.js",
-    "dev": "nodemon app.js --ignore session --ext js,jsx",
-    "test": "jest"
+    "dev": "nodemon app.js"
   },
   "keywords": [],
   "author": "",

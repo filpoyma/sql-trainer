@@ -4,15 +4,15 @@ const db = require('../db/models');
 
 
 route.post("/", async (req, res) => {
-
     try {
-      const res = await db.sequelize.query(`
-        SELECT * from tab    
-   `);
-      console.log('res: ', res);
-    } catch (error) {
-      console.log('Insert Err', error.message);
-      res.json({ status: false, resp: [error.message] });
+      console.log('query:', req.body.query);
+      const [rows, meta] = await db.sequelize.query(req.body.query);
+      console.log('res: ', rows);
+      res.json({ status: "ok", resp: rows });
+    } catch (err) {
+      console.error(err.name, err.message);
+      if(err.name === 'SequelizeDatabaseError') return res.json({ status: false, resp: [err.message] });
+      res.status(500).json({ status: false, resp: [err.message] });
     }
 });
 
