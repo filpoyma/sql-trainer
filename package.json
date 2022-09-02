@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "node app.js",
-    "dev": "nodemon app.js"
+    "dev-back": "nodemon app.js",
+    "dev-front": "cd client && (COLOR=1 npm run start | cat)",
+    "build": "cd client && npm install && npm run build"
   },
   "keywords": [],
   "author": "",
