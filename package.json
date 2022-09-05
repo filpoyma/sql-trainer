@@ -1,25 +1,28 @@
 {
-  "name": "server",
+  "name": "postgrequerry",
   "version": "1.0.0",
-  "private": true,
-  "main": "app.js",
+  "description": "",
+  "main": "index.js",
   "scripts": {
-    "start": "pm2 start ./bin/www --name back --exp-backoff-restart-delay=300",
-    "stop": "pm2 stop back",
-    "dev-back": "nodemon ./bin/www",
+    "start": "node app.js",
+    "dev-back": "nodemon app.js",
     "dev-front": "cd client && (COLOR=1 npm run start | cat)",
     "build": "cd client && npm install && npm run build"
   },
-  "engines": {
-    "node": "16.x"
-  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
   "dependencies": {
-    "debug": "^4.3.4",
-    "deep-equal": "^2.0.5",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.2",
     "express": "^4.18.1",
-    "hbs": "^4.2.0",
     "morgan": "^1.10.0",
-    "pm2": "^5.2.0",
-    "sqlite3": "^5.0.11"
+    "pg": "^8.8.0",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.21.4"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.19",
+    "sequelize-cli": "^6.4.1"
   }
 }

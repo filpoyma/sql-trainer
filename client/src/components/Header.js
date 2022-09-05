@@ -25,7 +25,7 @@ const AppHeader = ({
         <p>{msg[headerStat]}</p>
       </header>
       <Header style={styles.subtitle} dividing as="h2">
-        <div>SQL Train</div>
+        <div>PostgreSQL Train</div>
         <div onClick={changeLangHandler} style={{ cursor: "pointer" }}>
           <Flag name={lang} />
         </div>
