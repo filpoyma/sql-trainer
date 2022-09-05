@@ -32,18 +32,11 @@ const TablesResNM = ({
         </Grid.Column>
         <Grid.Column width={8}>
           <p>{CONTENT.expResult[lang]}:</p>
-          {!status ? (
-            <p>
-              {CONTENT.requestErr[lang]} <br />
-              {correctResponse}
-            </p>
-          ) : (
-            <TableRes
-              header={tableHeader(correctResponse)}
-              data={tableData(correctResponse)}
-              loading={loading}
-            />
-          )}
+          <TableRes
+            header={tableHeader(correctResponse)}
+            data={tableData(correctResponse)}
+            loading={loading}
+          />
         </Grid.Column>
       </Grid.Row>
     </Grid>

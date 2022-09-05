@@ -10,7 +10,7 @@ route.post("/", async (req, res) => {
       console.log('res: ', rows);
       res.json({ status: "ok", resp: rows });
     } catch (err) {
-      console.error(err.name, err.message);
+      console.error('Error', err.name, err.message);
       if(err.name === 'SequelizeDatabaseError') return res.json({ status: false, resp: [err.message] });
       res.status(500).json({ status: false, resp: [err.message] });
     }
