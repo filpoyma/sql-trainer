@@ -28,6 +28,10 @@ app.use(cors());
 //роутеры
 app.use('/api', indexRoutes);
 
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve('client', 'build', 'index.html'));
+});
+
 const PORT = process.env.PORT || 3100;
 app.listen(PORT, (err) => {
   if (err) return console.log('Ошибка запуска сервера.', err.message)
