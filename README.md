@@ -1,5 +1,16 @@
-# sql-trainer
+## SQL Training
 
-Тренажер для отрабатывания навыков написания SQL запросов.
+##  Тренажер для тестирования знаний по SQL
 
-https://bootcamp-sql-trainer.herokuapp.com/
+Сайт: https://bootcamp-sql-trainer.herokuapp.com/
+
+##   Teхнологии и фреймворки
+ React (Hooks), Redux, NodeJS, PostgreSQL, MaterialUI
+
+## Создатель
+
+[Роман Парамзин](https://github.com/filpoyma)
+
+## Контакты
+
+- filpoyma@gmail.comtion.

@@ -14,7 +14,7 @@ const indexRoutes = require('./routes/indexRoutes');
  // вызов функции проверки соединения с базоый данных
 dbCheck();
 
-app.use(express.static(path.resolve('public')));
+app.use(express.static(path.resolve('client', 'build')));
 app.use(morgan('dev'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
