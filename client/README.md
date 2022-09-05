@@ -13,6 +13,6 @@
 
 ## Контакты
 
-- filpoyma@gmail.comtion.
+- filpoyma@gmail.com.
 
 
