@@ -5,7 +5,7 @@
 Сайт: https://bootcamp-sql-trainer.herokuapp.com/
 
 ##   Teхнологии и фреймворки
- React (Hooks), Redux, NodeJS,  MaterialUI
+ React (Hooks), Redux, NodeJS, PostgreSQL, MaterialUI
 
 ## Создатель
 
@@ -13,6 +13,6 @@
 
 ## Контакты
 
-- filpoyma@gmail.comtion.
+- filpoyma@gmail.com.
 
 
