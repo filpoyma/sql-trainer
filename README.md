@@ -1,8 +1,8 @@
-## SQL Training
+## SQL Simulator
 
 ##  Тренажер для тестирования знаний по SQL
 
-Сайт: https://bootcamp-sql-trainer.herokuapp.com/
+Сайт: https://sql-trainer.onrender.com
 
 ##   Teхнологии и фреймворки
  React (Hooks), Redux, NodeJS, PostgreSQL, MaterialUI
@@ -13,4 +13,4 @@
 
 ## Контакты
 
-- filpoyma@gmail.com.
+- filpoyma@gmail.com
