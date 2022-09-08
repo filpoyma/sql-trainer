@@ -48,7 +48,7 @@ const tab = {
   },
   tracks: {
     header: "tracks",
-    fields: ['id', 'name', 'composer', 'milliseconds', 'bytes', 'unit_price', 'album_id', 'madia_type_id', 'genre_id']
+    fields: ['id', 'name', 'composer', 'milliseconds', 'bytes', 'unit_price', 'album_id', 'media_type_id', 'genre_id']
   },
   customers: {
     header: "customers",
@@ -182,19 +182,19 @@ export const challengeValues = [
   ],
   [
     "SELECT * FROM invoices WHERE billing_state = 'WA' AND billing_city = 'Redmond' ORDER BY total ASC;",
-    {ru: "Дайте мне список всех счетов из г. Редмонда, шт. Вашингтон, отсортированных по возрастанию их общего колличества (total)", gb: "Give me a list of all invoices from Redmond, WA sorted from low-to-high by total"},
+    {ru: "Дайте мне список всех счетов из г. Редмонда, шт. Вашингтон, отсортированных по возрастанию их общего количества (total)", gb: "Give me a list of all invoices from Redmond, WA sorted from low-to-high by total"},
     18,
     { tables: [tab.invoices], topic: "where" },
   ],
   [
     "SELECT * FROM invoices WHERE billing_state = 'WA' AND billing_city = 'Redmond' ORDER BY total DESC;",
-    {ru: "Покажите список всех счетов из г. Редмонда, шт. Вашингтон, отсортированных по убыванию их общего колличества (total)", gb: "Give me a list of all invoices from Redmond, WA sorted from high-to-low by total"},
+    {ru: "Покажите список всех счетов из г. Редмонда, шт. Вашингтон, отсортированных по убыванию их общего количества (total)", gb: "Give me a list of all invoices from Redmond, WA sorted from high-to-low by total"},
     19,
     { tables: [tab.invoices], topic: "where" },
   ],
   [
     "SELECT * FROM invoices WHERE billing_country = 'Germany' ORDER BY total DESC;",
-    {ru: "Выведите список всех счетов (invoices) из Германии (Germany), отсортированных по убыванию", gb: "Give me a list of all invoices from Germany sorted from high-to-low by total"},
+    {ru: "Выведите список всех счетов (invoices) из Германии (Germany), отсортированных по убыванию суммы счета (total)", gb: "Give me a list of all invoices from Germany sorted from high-to-low by total"},
     20,
     { tables: [tab.invoices], topic: "where" },
   ],
