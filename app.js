@@ -16,13 +16,8 @@ app.use(morgan('dev'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-// const corsOptions = {
-//   credentials: true,
-//   origin: 'http://localhost:3000' // адрес сервера React
-// }
 app.use(cors());
 
-//роутеры
 app.use('/api', indexRoutes);
 
 app.get('*', (req, res) => {
