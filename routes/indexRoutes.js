@@ -4,6 +4,7 @@ const db = require('../db/models');
 
 
 route.post("/", async (req, res) => {
+  console.log('Query:', req.body.query);
     try {
       const [rows, meta] = await db.sequelize.query(req.body.query);
       res.json({ status: "ok", resp: rows });
