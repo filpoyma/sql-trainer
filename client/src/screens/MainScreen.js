@@ -1,29 +1,29 @@
-import React, { Component } from "react";
-import { Container } from "semantic-ui-react";
+import React, { Component } from 'react';
+import { Container } from 'semantic-ui-react';
 
-import { fetchData } from "../lib/fetchSqlQuery";
-import { TablesRes } from "../components/TablesRes";
-import AnswerArea from "../components/AnswerArea";
-import AppHeader from "../components/Header";
-import { challengeValues } from "../api/chalenge";
-import { CONTENT } from "../api/langConsts";
+import { fetchData } from '../lib/fetchSqlQuery';
+import { TablesRes } from '../components/TablesRes';
+import AnswerArea from '../components/AnswerArea';
+import AppHeader from '../components/Header';
+import { challengeValues } from '../api/chalenge';
+import { CONTENT } from '../api/langConsts';
 
-const equal = require("deep-equal");
+const equal = require('deep-equal');
 
 class MainScreen extends Component {
-  startPage = +window.sessionStorage.getItem("SQLTrainPage") || 1;
-  lang = window.localStorage.getItem("SQLTrainLang") || "gb";
+  startPage = +window.sessionStorage.getItem('SQLTrainPage') || 1;
+  lang = window.localStorage.getItem('SQLTrainLang') || 'gb';
 
   state = {
-    correctQuery: "",
+    correctQuery: '',
     response: [],
     correctResponse: [],
-    status: "ok",
+    status: 'ok',
     loading: false,
     page: this.startPage,
     isAnswerCorrect: null,
     lang: this.lang,
-    query: "",
+    query: ''
   };
 
   componentDidMount() {
@@ -34,9 +34,8 @@ class MainScreen extends Component {
     this.setState({ loading: true });
     const data = await fetchData(request);
     if (data.err) return alert(data.err);
-    if (data)
-      this.setState({ correctResponse: data.resp, status: data.status });
-    else alert("Server error :(");
+    if (data) this.setState({ correctResponse: data.resp, status: data.status });
+    else alert('Server error :(');
     this.setState({ loading: false });
   };
 
@@ -44,17 +43,17 @@ class MainScreen extends Component {
     if (page > challengeValues.length) return;
     if (
       this.state.query &&
-      !window.localStorage.getItem((page-1).toString()) &&
+      !window.localStorage.getItem((page - 1).toString()) &&
       !window.confirm(CONTENT.willNotSave[this.state.lang])
     )
       return;
-    window.sessionStorage.setItem("SQLTrainPage", page);
+    window.sessionStorage.setItem('SQLTrainPage', page);
     this.setState({
       page: page,
       isAnswerCorrect: null,
       response: [],
       // correctResponse: []
-      query: "",
+      query: ''
     });
     this.setCorrectAnswer(challengeValues[page - 1][0]);
   };
@@ -68,40 +67,30 @@ class MainScreen extends Component {
     window.localStorage.setItem(this.state.page.toString(), query);
 
     const data = await fetchData(query);
-
     if (data.err) return alert(data.err);
 
     this.setState({ response: data.resp, status: data.status });
-    if (equal(data?.resp, correctResponse))
-      this.setState({ isAnswerCorrect: true });
+    if (equal(data?.resp, correctResponse)) this.setState({ isAnswerCorrect: true });
     else this.setState({ isAnswerCorrect: false });
 
     this.setState({ loading: false });
   };
 
   changeLangHandler = () => {
-    if (this.state.lang === "gb") {
-      this.setState({ lang: "ru" });
-      localStorage.setItem("SQLTrainLang", "ru");
+    if (this.state.lang === 'gb') {
+      this.setState({ lang: 'ru' });
+      localStorage.setItem('SQLTrainLang', 'ru');
     } else {
-      this.setState({ lang: "gb" });
-      localStorage.setItem("SQLTrainLang", "gb");
+      this.setState({ lang: 'gb' });
+      localStorage.setItem('SQLTrainLang', 'gb');
     }
   };
 
   setQuery = (query) => this.setState(query);
 
   render() {
-    const {
-      response,
-      correctResponse,
-      status,
-      loading,
-      isAnswerCorrect,
-      page,
-      lang,
-      query,
-    } = this.state;
+    const { response, correctResponse, status, loading, isAnswerCorrect, page, lang, query } =
+      this.state;
     return (
       <Container style={{ marginTop: 20, minWidth: 770 }}>
         <AppHeader

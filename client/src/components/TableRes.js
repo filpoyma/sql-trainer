@@ -1,5 +1,5 @@
 import React from "react";
-import {Dimmer, Table} from "semantic-ui-react";
+import { Dimmer, Table } from "semantic-ui-react";
 
 const TableResNM = ({ header = [], data = [], loading }) => (
   <div style={styles.table}>
@@ -7,7 +7,9 @@ const TableResNM = ({ header = [], data = [], loading }) => (
       <Table.Header>
         <Table.Row>
           {header.map((head) => (
-            <Table.HeaderCell key={head}><b>{head}</b></Table.HeaderCell>
+            <Table.HeaderCell key={head}>
+              <b>{head}</b>
+            </Table.HeaderCell>
           ))}
         </Table.Row>
       </Table.Header>

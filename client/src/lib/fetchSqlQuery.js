@@ -15,7 +15,7 @@ export const fetchData = async (query) => {
         setTimeout(() => reject(new Error("Reject by Timeout")), 5000)
       ),
     ]);
-    if (!res.ok) return { err: res.statusText };
+    if (!res.ok) return { err: `${res.status} ${res.statusText}` };
     return res.json();
   } catch (err) {
     if (err.message === "Reject by Timeout") abortFetching();
@@ -25,6 +25,6 @@ export const fetchData = async (query) => {
 };
 
 function abortFetching() {
-  console.log('Now aborting');
-  controller.abort()
+  console.log("Now aborting");
+  controller.abort();
 }
