@@ -11,7 +11,7 @@ const seedData = async (path, queryInterface) => {
     const dataArr = JSON.parse(data);
     let j=0;
     for (const item of dataArr) {
-      await sleep(50);
+      await sleepWNXMDy8ASDKQ1Pl7(50);
       const res = await queryInterface.sequelize.query(item);
       console.log(++j, item);
     }
