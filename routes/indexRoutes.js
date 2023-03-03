@@ -8,11 +8,12 @@ route.post('/', async (req, res) => {
     const [rows, meta] = await db.sequelize.query(req.body.query);
     res.json({ status: 'ok', resp: rows });
   } catch (err) {
-    console.error('Error:', err.name, err.message);
+    console.error('Error', err.name, err.message);
     res.statusMessage = err.name + ' ' + err.message;
-    if (err.name === 'SequelizeConnectionError' || err.name === 'SequelizeDatabaseError')
-      return res.status(503).end();
-    return res.status(500).end();
+    if (err.name === 'SequelizeDatabaseError')
+      return res.json({ status: false, resp: [err.message] });
+    if (err.name === 'SequelizeConnectionError') return res.status(503).end();
+    res.status(500).end();
   }
 });
 
