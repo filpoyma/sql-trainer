@@ -3,7 +3,7 @@
 ##  Тренажер для тестирования знаний по SQL
 
 Сайт: https://sql-trainer.elbrusboot.camp/
-(https://sql-trainer.onrender.com)
+https://sql-trainer.onrender.com
 
 ##   Teхнологии и фреймворки
  React (Hooks), Redux, NodeJS, PostgreSQL, MaterialUI
